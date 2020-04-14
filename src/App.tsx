@@ -1,5 +1,6 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import cx from 'classnames';
+import socket from './socket';
 
 export interface NavItemProps {
   children: ReactNode;
@@ -23,7 +24,12 @@ const CodeBlock = ({ children }: { children: ReactNode }) => (
     <code>{children}</code>
   </div>
 );
-const LfContainer = () => (
+
+export interface LfContainerProps {
+  apiKey: string;
+  logs: string[];
+}
+const LfContainer = ({ apiKey, logs }: LfContainerProps) => (
   <div className="w-full flex">
     <div className="w-1/3">
       <h3 className="text-gray-600 font-semibold text-xl mb-6">
@@ -53,16 +59,31 @@ const LfContainer = () => (
         Your temporary API key:
       </h2>
       <div className="rounded bg-green-200 p-3 border border-green-400 mb-8">
-        API_KEY
+        {apiKey}
       </div>
       <h5 className="text-gray-600">Your logs will appear here!</h5>
-      <textarea className="w-full bg-gray-200 rounded h-full" />
+      <textarea
+        className="w-full bg-gray-200 rounded h-full"
+        readOnly
+        value={logs.join('\n')}
+      />
     </div>
   </div>
 );
 
 const App = () => {
-  const [key, setKey] = useState<string | null>(null);
+  const [apiKey, setApiKey] = useState<string>('');
+  const [logs, setLogs] = useState<string[]>([]);
+
+  useEffect(() => {
+    socket.on('CONNECT', (key: string) => {
+      setApiKey(key);
+    });
+    socket.on('DATA', (data: any) => {
+      console.log(data);
+      setLogs(l => [data, ...l]);
+    });
+  }, []);
 
   return (
     <div className="pt-24 px-6">
@@ -73,7 +94,7 @@ const App = () => {
           <NavItem end>support</NavItem>
         </div>
       </div>
-      <LfContainer />
+      <LfContainer apiKey={apiKey} logs={logs} />
     </div>
   );
 };
