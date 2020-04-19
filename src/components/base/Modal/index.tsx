@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import Button from '../Button';
 import socket from '../../../socket';
 
 export interface ModalProps {
   open: boolean;
   title: string;
+  content: ReactNode;
   handleClose: () => void;
 }
 
@@ -12,7 +13,7 @@ const modalBackgroundStyle = {
   backgroundColor: 'rgba(0, 0, 0, 0.75)',
 };
 
-const Modal = ({ title, open, handleClose }: ModalProps) => {
+const Modal = ({ title, open, handleClose, content }: ModalProps) => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
 
   const verifyPhoneNumber = () => {
@@ -36,14 +37,7 @@ const Modal = ({ title, open, handleClose }: ModalProps) => {
           close
         </button>
         <h2 className="mb-4">{title}</h2>
-        <p className="mb-4">
-          Input your phone number below to set up mobile logging.
-        </p>
-        <input
-          className="mb-4 px-3 h-10 rounded-md border border-solid border-blue-500"
-          value={phoneNumber}
-          onChange={({ target: { value } }) => setPhoneNumber(value)}
-        />
+        {content}
         <Button handleClick={verifyPhoneNumber}>Verify</Button>
       </div>
     </div>
