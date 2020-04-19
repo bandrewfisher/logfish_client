@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, RenderResult, wait, act } from '@testing-library/react';
-import App from './App';
+import App from '../App';
 
 let onCb: ((data: any) => void) | null = null;
 function mockRegisterDataCb(cb: (data: any) => void) {
@@ -10,7 +10,7 @@ let onConnect: ((data: any) => void) | null = null;
 function mockRegisterConnectCb(cb: (data: any) => void) {
   onConnect = cb;
 }
-jest.mock('./socket', () => ({
+jest.mock('../socket', () => ({
   __esModule: true,
   default: {
     on: jest.fn((event: string, cb: (data: any) => void) => {
