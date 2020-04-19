@@ -3,31 +3,13 @@ import socket from './socket';
 
 import NavBar from './components/NavBar';
 import Button from './components/base/Button';
-import Modal from './components/base/Modal';
 import Sidebar from './components/Sidebar';
+import PhoneModal from './components/PhoneModal';
 
 const App = () => {
   const [apiKey, setApiKey] = useState<string>('');
   const [logs, setLogs] = useState<string[]>([]);
   const [phoneModalOpen, setPhoneModalOpen] = useState<boolean>(false);
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
-
-  const verifyPhoneNumber = () => {
-    socket.emit('ADD-PHONE', phoneNumber);
-  };
-
-  const renderModalContent = () => (
-    <>
-      <p className="mb-4">
-        Input your phone number below to set up mobile logging.
-      </p>
-      <input
-        className="mb-4 px-3 h-10 rounded-md border border-solid border-blue-500"
-        value={phoneNumber}
-        onChange={({ target: { value } }) => setPhoneNumber(value)}
-      />
-    </>
-  );
 
   useEffect(() => {
     socket.on('CONNECT', (key: string) => {
@@ -35,10 +17,7 @@ const App = () => {
     });
     socket.on('DATA', (data: any) => {
       console.log(data);
-      setLogs(l => [data, ...l]);
-    });
-    socket.on('ADD-PHONE-ERROR', (message: string) => {
-      console.log(message);
+      setLogs((l) => [data, ...l]);
     });
   }, []);
 
@@ -73,12 +52,7 @@ const App = () => {
             value={logs.join('\n')}
           />
         </div>
-        <Modal
-          title="Set up phone logging"
-          handleClose={() => setPhoneModalOpen(false)}
-          open={phoneModalOpen}
-          content={renderModalContent()}
-        />
+        <PhoneModal open={phoneModalOpen} handleClose={() => setPhoneModalOpen(false)} />
       </div>
     </div>
   );

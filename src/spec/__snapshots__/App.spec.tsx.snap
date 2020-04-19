@@ -105,7 +105,7 @@ exports[`App matches snapshot 1`] = `
             </h5>
           </div>
           <button
-            class="rounded-md p-3 bg-blue-500 text-white"
+            class="rounded-md p-3 text-white bg-blue-500"
             type="button"
           >
             Set up phone logging

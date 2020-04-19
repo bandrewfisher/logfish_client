@@ -1,11 +1,10 @@
-import React, { useState, useEffect, ReactNode } from 'react';
-import Button from '../Button';
-import socket from '../../../socket';
+import React, { ReactNode } from 'react';
 
 export interface ModalProps {
   open: boolean;
   title: string;
   content: ReactNode;
+  actions: ReactNode;
   handleClose: () => void;
 }
 
@@ -13,19 +12,9 @@ const modalBackgroundStyle = {
   backgroundColor: 'rgba(0, 0, 0, 0.75)',
 };
 
-const Modal = ({ title, open, handleClose, content }: ModalProps) => {
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
-
-  const verifyPhoneNumber = () => {
-    socket.emit('ADD-PHONE', phoneNumber);
-  };
-
-  useEffect(() => {
-    socket.on('ADD-PHONE-ERROR', (message: string) => {
-      console.log(message);
-    });
-  }, []);
-
+const Modal = ({
+  title, open, handleClose, content, actions,
+}: ModalProps) => {
   if (!open) return null;
   return (
     <div
@@ -38,7 +27,7 @@ const Modal = ({ title, open, handleClose, content }: ModalProps) => {
         </button>
         <h2 className="mb-4">{title}</h2>
         {content}
-        <Button handleClick={verifyPhoneNumber}>Verify</Button>
+        {actions}
       </div>
     </div>
   );
