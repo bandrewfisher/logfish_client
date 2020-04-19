@@ -5,15 +5,17 @@ export interface ButtonProps {
   handleClick?: (
     event?: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
+  loading?: boolean;
 }
-const Button = ({ children, handleClick }: ButtonProps) => {
+const Button = ({ children, handleClick, loading = false }: ButtonProps) => {
   return (
     <button
       className="rounded-md p-3 bg-blue-500 text-white"
       type="button"
+      disabled={loading}
       onClick={e => handleClick && handleClick(e)}
     >
-      {children}
+      {loading ? 'Loading...' : children}
     </button>
   );
 };
