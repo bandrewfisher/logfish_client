@@ -1,0 +1,16 @@
+.toast-container {
+  width: 100vw;
+}
+
+.toast {
+  transition: opacity 0.5s;
+  transform: translateY(-30px);
+}
+
+.toast-show {
+  opacity: 1;
+}
+
+.toast-hide {
+  opacity: 0;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../base/Modal';
 import Button from '../base/Button';
+import Input from '../base/Input';
 import socket from '../../socket';
 
 export interface PhoneModalProps {
@@ -11,6 +12,7 @@ export interface PhoneModalProps {
 const SendCodeModal = ({ open, handleClose, handleVerificationSent }: PhoneModalProps) => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [verifyLoading, setVerifyLoading] = useState<boolean>(false);
+  const [phoneError, setPhoneError] = useState<string>('');
 
   const reset = () => {
     setPhoneNumber('');
@@ -19,8 +21,17 @@ const SendCodeModal = ({ open, handleClose, handleVerificationSent }: PhoneModal
   };
 
   const verifyPhoneNumber = () => {
+    if (!phoneNumber.match(/^\+\d{11}$/)) {
+      setPhoneError('Phone number does not match correct format');
+      return;
+    }
     socket.emit('ADD-PHONE', phoneNumber);
     setVerifyLoading(true);
+  };
+
+  const updatePhoneNumber = (number: string) => {
+    setPhoneError('');
+    setPhoneNumber(number);
   };
 
   useEffect(() => {
@@ -30,6 +41,7 @@ const SendCodeModal = ({ open, handleClose, handleVerificationSent }: PhoneModal
     });
     socket.on('ADD-PHONE-ERROR', (message: string) => {
       setVerifyLoading(false);
+      setPhoneError(message);
     });
   }, [phoneNumber, handleVerificationSent]);
 
@@ -42,16 +54,23 @@ const SendCodeModal = ({ open, handleClose, handleVerificationSent }: PhoneModal
         <>
           <p className="mb-4">
               Input your phone number below to set up mobile logging.
+              Include your country code.
           </p>
-          <input
-            className="mb-4 px-3 h-10 rounded-md border border-solid border-blue-500"
+          <Input
+            className="mb-4"
             value={phoneNumber}
-            onChange={({ target: { value } }) => setPhoneNumber(value)}
+            onChange={({ target: { value } }) => updatePhoneNumber(value)}
+            placeholder="+18015551234"
           />
+          {phoneError && (<div className="mb-4 text-red-400">{phoneError}</div>)}
         </>
         )}
       actions={(
-        <Button handleClick={verifyPhoneNumber} loading={verifyLoading}>
+        <Button
+          disabled={phoneNumber.trim() === ''}
+          handleClick={verifyPhoneNumber}
+          loading={verifyLoading}
+        >
             Verify
         </Button>
         )}

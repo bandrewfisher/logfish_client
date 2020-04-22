@@ -1,5 +1,7 @@
 import React from 'react';
-import { render, RenderResult, wait, act } from '@testing-library/react';
+import {
+  render, RenderResult, wait, act,
+} from '@testing-library/react';
 import App from '../App';
 
 let onCb: ((data: any) => void) | null = null;

@@ -3,6 +3,7 @@ import socket from '../../socket';
 
 import Modal from '../base/Modal';
 import Button from '../base/Button';
+import Input from '../base/Input';
 
 export interface ConfirmCodeModalProps {
   open: boolean;
@@ -15,6 +16,7 @@ const ConfirmCodeModal = ({
 }: ConfirmCodeModalProps) => {
   const [verificationCode, setVerificationCode] = useState<string>('');
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const [confirmError, setConfirmError] = useState<string>('');
 
   const reset = () => {
     setVerificationCode('');
@@ -33,8 +35,9 @@ const ConfirmCodeModal = ({
       handleConfirm();
     });
 
-    socket.on('CONFIRM-PHONE-ERROR', () => {
+    socket.on('CONFIRM-PHONE-ERROR', (message: string) => {
       setConfirmLoading(false);
+      setConfirmError(message);
     });
   }, [handleConfirm]);
 
@@ -49,16 +52,24 @@ const ConfirmCodeModal = ({
             We have texted a code to your phone. Enter the code
              you received below:
           </p>
-          <input
-            className="mb-4 px-3 h-10 rounded-md border border-solid border-blue-500"
+          <Input
+            className="mb-4"
             value={verificationCode}
             onChange={({ target: { value } }) => setVerificationCode(value)}
+            placeholder="123456"
           />
+          {confirmError && <div className="text-red-400 mb-4">{confirmError}</div>}
         </>
       )}
-      actions={
-        <Button loading={confirmLoading} handleClick={confirmCode}>Confirm</Button>
-      }
+      actions={(
+        <Button
+          disabled={verificationCode.trim() === ''}
+          loading={confirmLoading}
+          handleClick={confirmCode}
+        >
+          Confirm
+        </Button>
+      )}
     />
   );
 };

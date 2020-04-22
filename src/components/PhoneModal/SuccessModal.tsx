@@ -12,7 +12,7 @@ const SuccessModal = ({ open, handleClose }: SuccessModalProps) => (
     title="Success!"
     content="Your phone number has been verified. You will now recieve logs as text messages."
     handleClose={handleClose}
-    actions={<Button handleClick={handleClose}>Close</Button>}
+    actions={<Button className="mt-4" handleClick={handleClose}>Close</Button>}
     open={open}
   />
 );
