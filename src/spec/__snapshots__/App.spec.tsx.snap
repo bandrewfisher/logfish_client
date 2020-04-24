@@ -60,7 +60,7 @@ exports[`App matches snapshot 1`] = `
               class="bg-gray-200 rounded-md border-gray-300 border p-2 inline-block"
             >
               <code>
-                const lf = require('logfish');
+                const lf = require('logfish').default;
                 <br />
                 // or 
                 <br />

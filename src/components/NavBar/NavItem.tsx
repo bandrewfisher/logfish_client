@@ -1,19 +1,25 @@
 import React, { ReactNode } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import cx from 'classnames';
 
 export interface NavItemProps {
   children: ReactNode;
   end?: boolean;
+  to: string;
 }
-const NavItem = ({ children, end }: NavItemProps) => {
+const NavItem = ({ children, end = false, to }: NavItemProps) => {
+  const location = useLocation();
   return (
     <div
       className={cx(
-        'font-semibold text-gray-500 hover:text-blue-600 cursor-pointer',
-        end ? '' : 'mr-3'
+        'font-semibold',
+        location.pathname === to ? 'text-blue-600' : 'text-gray-600',
+        end ? '' : 'mr-3',
       )}
     >
-      {children}
+      <Link className="hover:text-blue-600" to={to}>
+        {children}
+      </Link>
     </div>
   );
 };

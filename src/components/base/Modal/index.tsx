@@ -21,11 +21,13 @@ const Modal = ({
       className="fixed z-10 inset-0 flex justify-center items-center"
       style={modalBackgroundStyle}
     >
-      <div className="fixed z-20 pt-0 p-6 w-1/3 bg-white rounded-md flex flex-col">
-        <button type="button" className="self-end" onClick={handleClose}>
-          close
-        </button>
-        <h2 className="mb-4">{title}</h2>
+      <div className="fixed z-20 pt-0 p-6 w-1/3 bg-white rounded-md flex flex-col text-gray-700 text-lg">
+        <div className="flex justify-between align-middle">
+          <h2 className="font-semibold mt-6 mb-3">{title}</h2>
+          <button type="button" className="-mr-3 -mt-3 text-2xl font-bold" onClick={handleClose}>
+            ×
+          </button>
+        </div>
         {content}
         {actions}
       </div>

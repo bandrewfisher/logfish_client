@@ -6,10 +6,11 @@ import SuccessModal from './SuccessModal';
 export interface PhoneModalProps {
   open: boolean;
   handleClose: () => void;
+  onSetupSuccess: () => void;
 }
 
 export type PhoneState = 'enterPhone' | 'verificationSent' | 'codeConfirmed';
-const PhoneModal = ({ open, handleClose }: PhoneModalProps) => {
+const PhoneModal = ({ open, handleClose, onSetupSuccess }: PhoneModalProps) => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [state, setState] = useState<PhoneState>('enterPhone');
 
@@ -36,7 +37,10 @@ const PhoneModal = ({ open, handleClose }: PhoneModalProps) => {
         open={open}
         handleClose={reset}
         phoneNumber={phoneNumber}
-        handleConfirm={() => setState('codeConfirmed')}
+        handleConfirm={() => {
+          setState('codeConfirmed');
+          onSetupSuccess();
+        }}
       />
     );
   }
