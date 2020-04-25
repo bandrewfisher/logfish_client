@@ -21,7 +21,7 @@ $ yarn install
 If you have a local Logfish server running, you will need to set an environment variable called `LOGFISH_SERVER_URL` that points to it. For example, if your server is running locally on port 5000, then start the client like so:
 
 ```
-$ LOGFISH_SERVER_URL=http://localhost:5000 && yarn start
+$ LOGFISH_SERVER_URL=http://localhost:5000 yarn start
 ```
 
 Or if you don't specify the server url, the client will by default point to the Elastic Beanstalk server.
