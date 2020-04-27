@@ -1,6 +1,6 @@
 # Logfish React client
 
-This is the code for the Logfish client. Before you set up this client, first follow the instructions for setting up the server locally at [https://github.com/bandrewfisher/logfish_server](https://github.com/bandrewfisher/logfish_server). After you have set up the server and this client locally, you can start using Logfish by downloading the Logfish npm package.
+This is the code for the Logfish client. Before you set up this client, first follow the instructions for setting up the server locally at [https://github.com/bandrewfisher/logfish_server](https://github.com/bandrewfisher/logfish_server). After you have set up the server and this client locally, you can start using Logfish by downloading the Logfish npm package: [https://www.npmjs.com/package/logfish](https://www.npmjs.com/package/logfish)
 
 ## Clone this repository and install dependencies
 

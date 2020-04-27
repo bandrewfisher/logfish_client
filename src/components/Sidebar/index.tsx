@@ -8,7 +8,13 @@ const Sidebar = () => (
       How&apos;s it work?
     </h3>
     <ul className="text-gray-700 text-lg">
-      <li>1. Download the npm package.</li>
+      <li>
+        1.
+        <a href="https://www.npmjs.com/package/logfish" className="text-blue-500 hover:underline">
+          {' Download the npm package'}
+.
+        </a>
+      </li>
       <li>
         <CodeBlock>$ npm install logfish</CodeBlock>
       </li>
@@ -19,22 +25,22 @@ const Sidebar = () => (
           <br />
           {'// or '}
           <br />
-          {'import lf from \'logfish\''}
+          {'import Logfish from \'logfish\''}
         </CodeBlock>
       </li>
       <li>3. Copy your API key.</li>
       <li>4. Log!</li>
       <li>
         <CodeBlock>
-          {'const logger = new lf(\'API_KEY_HERE\')'}
+          {'const lf = new Logfish(\'API_KEY_HERE\', \'SERVER_URL\');'}
           <br />
-          {'logger.info(\'my cool message\')'}
+          {'lf.info(\'my cool message\')'}
           <br />
-          {'logger.warn(\'oh no!\')'}
+          {'lf.warn(\'oh no!\')'}
           <br />
-          {'logger.error(\'We have a problem\')'}
+          {'lf.error(\'We have a problem\')'}
           <br />
-          {'logger.debug(\'Better than console.log\')'}
+          {'lf.debug(\'Better than console.log\')'}
         </CodeBlock>
       </li>
     </ul>
