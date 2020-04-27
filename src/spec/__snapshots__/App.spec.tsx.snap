@@ -6,25 +6,29 @@ exports[`App matches snapshot 1`] = `
     class="pt-24"
   >
     <div
-      class="fixed top-0 inset-x-0 bg-transparent h-24 flex justify-between p-6 text-xl"
+      class="fixed top-0 inset-x-0 bg-white h-24 flex justify-between p-6 text-xl"
     >
       <div
         class="font-bold"
       >
-        logfish
+        <a
+          href="#/"
+        >
+          logfish
+        </a>
       </div>
       <div
         class="flex"
       >
         <div
-          class="font-semibold text-gray-500 hover:text-blue-600 cursor-pointer mr-3"
+          class="font-semibold text-gray-600 mr-3"
         >
-          about
-        </div>
-        <div
-          class="font-semibold text-gray-500 hover:text-blue-600 cursor-pointer"
-        >
-          support
+          <a
+            class="hover:text-blue-600"
+            href="#/about"
+          >
+            about
+          </a>
         </div>
       </div>
     </div>
@@ -35,17 +39,19 @@ exports[`App matches snapshot 1`] = `
         class="px-6"
       >
         <h3
-          class="text-gray-600 font-semibold text-xl mb-6"
+          class="text-gray-700 font-semibold text-xl mb-6"
         >
           How's it work?
         </h3>
-        <ul>
+        <ul
+          class="text-gray-700 text-lg"
+        >
           <li>
             1. Download the npm package.
           </li>
           <li>
             <div
-              class="bg-gray-200 rounded-md border-gray-300 border p-2 inline-block"
+              class="bg-gray-200 rounded-md border-gray-300 border p-2 inline-block my-3 text-base"
             >
               <code>
                 $ npm install logfish
@@ -57,14 +63,14 @@ exports[`App matches snapshot 1`] = `
           </li>
           <li>
             <div
-              class="bg-gray-200 rounded-md border-gray-300 border p-2 inline-block"
+              class="bg-gray-200 rounded-md border-gray-300 border p-2 inline-block my-3 text-base"
             >
               <code>
-                const lf = require('logfish').default;
+                const lf = require('logfish').default
                 <br />
                 // or 
                 <br />
-                import lf from 'logfish';
+                import lf from 'logfish'
               </code>
             </div>
           </li>
@@ -73,6 +79,23 @@ exports[`App matches snapshot 1`] = `
           </li>
           <li>
             4. Log!
+          </li>
+          <li>
+            <div
+              class="bg-gray-200 rounded-md border-gray-300 border p-2 inline-block my-3 text-base"
+            >
+              <code>
+                const logger = new lf('API_KEY_HERE')
+                <br />
+                logger.info('my cool message')
+                <br />
+                logger.warn('oh no!')
+                <br />
+                logger.error('We have a problem')
+                <br />
+                logger.debug('Better than console.log')
+              </code>
+            </div>
           </li>
         </ul>
       </div>
@@ -105,7 +128,7 @@ exports[`App matches snapshot 1`] = `
             </h5>
           </div>
           <button
-            class="rounded-md p-3 text-white bg-blue-500"
+            class="rounded-md p-3 bg-blue-500 text-white text-lg"
             type="button"
           >
             Set up phone logging
